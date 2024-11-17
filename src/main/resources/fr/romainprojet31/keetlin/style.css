@@ -1,0 +1,84 @@
+.combo-box .list-cell, .button, .button:hover
+{
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background: #2f59ed;
+    -fx-text-alignment: center;
+    -fx-background-color:  #2f59ed;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.arrow-button {
+    -fx-background: #f9f9f9;
+}
+
+.combo-box, .text-field, .password-field, .button {
+    -fx-border-color: black;
+    -fx-border-radius: 1%;
+    -fx-border-width: 2;
+    -fx-font-weight: bold;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.combo-box-base:hover, .button:hover, .text-field:hover, .password-field:hover,
+ .combo-box-base:focused, .button:focused, .text-field:focused, .password-field:focused{
+    -fx-border-color: #0000ff;
+}
+
+.password-field, .text-field {
+    -fx-background-color: white;
+    -fx-text-alignment: center;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+.link-label {
+     -fx-text-fill: #0834d4;
+     -fx-underline: true ;
+}
+
+.success-msg, .error-msg {
+    -fx-font-weight: bold;
+
+}
+
+.table-view .table-column {
+  -fx-alignment: CENTER;
+}
+
+.bg-success, .bg-danger {
+    -fx-text-alignment: center;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+.bg-success {
+    -fx-text-fill: #268700;
+}
+
+.bg-danger {
+    -fx-text-fill: #4f0101;
+}
+
+.link {
+    -fx-text-fill: #010859;
+    -fx-underline: true;
+}
+
+.table-row-cell:filled:selected{
+  -fx-background-color: -fx-table-cell-border-color ;
+  -fx-table-cell-border-color: derive(-fx-color, 5%);
+  -fx-background: -fx-control-inner-background ;
+  -fx-border-color: #0000ff;
+}
+.table-row-cell:odd:filled:selected {
+  -fx-background: -fx-control-inner-background-alt ;
+}
+
+.ikonli-font:hover {
+    -fx-border:  #02123a;
+    -fx-background: #41517a;
+    -fx-opacity: 0.5;
+    -fx-cursor: hand;
+}

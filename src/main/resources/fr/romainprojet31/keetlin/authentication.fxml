@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="322.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.romainprojet31.keetlin.controllers.AuthenticationController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" ellipsisString="" maxWidth="1.7976931348623157E308" prefHeight="72.0" prefWidth="600.0" text="Choose your Safe" textAlignment="CENTER" underline="true">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" onKeyPressed="#submitAuthenticationByKeyPressed" prefHeight="286.0" prefWidth="600.0">
+         <children>
+            <ComboBox id="safeLstCbx" fx:id="safeLstCbx" layoutX="84.0" layoutY="30.0" prefHeight="25.0" prefWidth="434.0" promptText="Safe list" stylesheets="@style.css" AnchorPane.topAnchor="30.0" />
+            <PasswordField fx:id="safePwd" alignment="CENTER" layoutX="85.0" layoutY="80.0" prefHeight="25.0" prefWidth="434.0" promptText="Enter your master password">
+               <font>
+                  <Font name="Berlin Sans FB Bold" size="12.0" />
+               </font>
+            </PasswordField>
+            <Button accessibleRole="NODE" alignment="CENTER" contentDisplay="CENTER" depthTest="DISABLE" graphicTextGap="1.0" layoutX="183.0" layoutY="134.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#submitAuthentication" pickOnBounds="false" prefHeight="25.0" prefWidth="237.0" stylesheets="@style.css" text="Submit">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <rotationAxis>
+                  <Point3D />
+               </rotationAxis>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Label fx:id="confirmationMsg" alignment="CENTER" contentDisplay="CENTER" layoutY="185.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="602.0" text="efez" textAlignment="CENTER" />
+         </children>
+      </AnchorPane>
+      <Separator prefHeight="0.0" prefWidth="600.0" stylesheets="@style.css" />
+      <VBox prefHeight="86.0" prefWidth="600.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="56.0" prefWidth="600.0" styleClass="link-label" text="Create a new safe" textAlignment="CENTER">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</VBox>
