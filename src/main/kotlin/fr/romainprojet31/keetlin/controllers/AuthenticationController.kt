@@ -1,21 +1,17 @@
 package fr.romainprojet31.keetlin.controllers
 
-import fr.romainprojet31.keetlin.WindowConstant
 import fr.romainprojet31.keetlin.dao.SQLConnector
 import fr.romainprojet31.keetlin.dao.SafeRepositoryImpl
 import fr.romainprojet31.keetlin.model.Safe
-import fr.romainprojet31.keetlin.view.SafeView
 import fr.romainprojet31.keetlin.view.SceneManager
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
 import javafx.scene.Parent
-import javafx.scene.Scene
 import javafx.scene.control.ComboBox
 import javafx.scene.control.Label
 import javafx.scene.control.PasswordField
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
-import javafx.stage.Stage
 import javafx.util.StringConverter
 import java.net.URL
 import java.util.*
@@ -66,16 +62,10 @@ class AuthenticationController : Initializable {
 
     @FXML
     fun createNewSafe() {
-        val secondWindow = Stage()
-        secondWindow.title = "Create a new Safe"
-        secondWindow.scene = Scene(SafeView(), WindowConstant.WIDTH, WindowConstant.HEIGHT)
-        secondWindow.showAndWait()
-        secondWindow.scene.window.setOnCloseRequest { initOrUpdateView() } // When close button (OS managed)
-        secondWindow.scene.window.setOnHidden { initOrUpdateView() } // When programmatically closed
-        //secondWindow.width = 400.0
-        //secondWindow.height = 300.0
-        secondWindow.sizeToScene()
-        secondWindow.scene.root.autosize()
+        val fxmlLoader = SceneManager.instance.getFxmlLoader("safe-management.fxml")
+        SceneManager.instance.load(fxmlLoader.load<Parent>())
+        val safeManagementCtrl = fxmlLoader.getController<SafeManagementController>()
+        safeManagementCtrl.safe = null// TODO: Handle Safe update
     }
 
     private fun initOrUpdateView() {
