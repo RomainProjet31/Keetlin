@@ -14,6 +14,7 @@ import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.control.PasswordField
 import javafx.scene.control.TextField
+import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
 import javafx.stage.Stage
 
@@ -45,8 +46,8 @@ class CredentialManagementController {
     fun checkRules(event: KeyEvent?) {
         val password = pwd.text
         val lengthOk = password.length >= 8
-        var upperChar = false;
-        var lowerChar = false;
+        var upperChar = false
+        var lowerChar = false
         var numberChar = false
         for (chr: Char in password.toCharArray()) {
             if (!numberChar && chr.isDigit()) numberChar = true
@@ -73,13 +74,18 @@ class CredentialManagementController {
     @FXML
     fun handleForm(event: KeyEvent?) {
         formValid.set(pwd.text.isNotEmpty() && url.text.trim().isNotEmpty() && username.text.trim().isNotEmpty())
+        if (KeyCode.ENTER?.equals(event?.code) && formValid.get()) saveCredential()
     }
 
     @FXML
-    fun saveCredential(event: ActionEvent?) {
+    fun onSaveCredential(event: ActionEvent?) {
         if (!formValid.get()) {
             return
         }
+        saveCredential()
+    }
+
+    private fun saveCredential() {
         if (credential == null) {
             credential = Credential(
                 id = null, url = url.text, pwd = encrypt(pwd.text), username = username.text, safeId = chosenSafe!!.id!!

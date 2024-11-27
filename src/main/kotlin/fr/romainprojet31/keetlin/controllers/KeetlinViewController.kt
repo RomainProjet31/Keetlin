@@ -39,6 +39,7 @@ class KeetlinViewController {
     lateinit var chosenSafe: Safe
 
     fun init() {
+        progressCopy.isVisible = false
         if (!::chosenSafe.isInitialized) {
             throw NO_CHOSEN_SAFE_EXCEPTION
         }
@@ -206,6 +207,7 @@ class KeetlinViewController {
     }
 
     private fun handleTimeoutCopy(keyCode: KeyCode) {
+        progressCopy.isVisible = true
         val valueType = if (keyCode == KeyCode.C) "Password" else "Username"
         Notifications.create()
             .title("$valueType copied")
@@ -229,6 +231,7 @@ class KeetlinViewController {
                 Notifications.create()
                     .title("$valueType erased from clipboard")
                     .show()
+                progressCopy.isVisible = false
             }
         }
         progressThread.start()

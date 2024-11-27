@@ -43,7 +43,7 @@
       <Separator prefHeight="0.0" prefWidth="600.0" stylesheets="@style.css" />
       <VBox prefHeight="86.0" prefWidth="600.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="56.0" prefWidth="600.0" styleClass="link-label" text="Create a new safe" textAlignment="CENTER">
+            <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#createNewSafe" prefHeight="56.0" prefWidth="600.0" styleClass="link-label" text="Create a new safe" textAlignment="CENTER">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
