@@ -12,9 +12,12 @@ import fr.romainprojet31.keetlin.view.Icon
 import fr.romainprojet31.keetlin.view.SceneManager
 import javafx.application.Platform
 import javafx.beans.property.SimpleStringProperty
+import javafx.event.ActionEvent
 import javafx.fxml.FXML
 import javafx.geometry.Pos
 import javafx.scene.Cursor
+import javafx.scene.Parent
+import javafx.scene.Scene
 import javafx.scene.control.*
 import javafx.scene.input.Clipboard
 import javafx.scene.input.ClipboardContent
@@ -62,6 +65,38 @@ class KeetlinViewController {
     @FXML
     fun addCredential() {
         addOrUpdate()
+    }
+
+    @FXML
+    fun goToHome(event: ActionEvent?) {
+        SceneManager.instance.load("authentication.fxml")
+    }
+
+
+    @FXML
+    fun editSafe(event: ActionEvent?) {
+        val fxmlLoader = SceneManager.instance.getFxmlLoader("safe-management.fxml")
+        SceneManager.instance.load(fxmlLoader.load<Parent>())
+        val safeManagerCtrl = fxmlLoader.getController<SafeManagementController>()
+        safeManagerCtrl.safe = chosenSafe
+        safeManagerCtrl.init()
+    }
+
+    @FXML
+    fun deleteSafe() {
+        val confirmDialog = Dialog<ButtonType>()
+        confirmDialog.title = "Confirm deletion"
+        confirmDialog.contentText = "Are you sure to delete this safe ?"
+
+        val dp = DialogPane()
+        dp.buttonTypes.addAll(ButtonType.YES, ButtonType.NO)
+
+        confirmDialog.dialogPane = dp
+        val result = confirmDialog.showAndWait()
+        if (result.isPresent && result.get() == ButtonType.YES) {
+            SQLConnector.instance.getRepo(SafeRepositoryImpl::class.java).delete(chosenSafe.id!!)
+            SceneManager.instance.load("authentication.fxml")
+        }
     }
 
     private fun addOrUpdate(credential: Credential? = null) {

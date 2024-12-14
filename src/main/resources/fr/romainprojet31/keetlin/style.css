@@ -21,6 +21,8 @@
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
 
+.delete-button
+
 .combo-box-base:hover, .button:hover, .text-field:hover, .password-field:hover,
  .combo-box-base:focused, .button:focused, .text-field:focused, .password-field:focused{
     -fx-border-color: #0000ff;

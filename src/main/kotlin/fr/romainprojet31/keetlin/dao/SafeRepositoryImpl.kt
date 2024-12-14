@@ -40,13 +40,47 @@ class SafeRepositoryImpl : IRepository<Safe> {
     }
 
     override fun save(t: Safe): Safe {
-        // Implémentation de la méthode
-        return t
+        return if (t.id != null) {
+            update(t)
+        } else {
+            create(t)
+        }
+    }
+
+    private fun create(safe: Safe): Safe {
+        val sql = "INSERT INTO SAFE (name, master_password) values (?,?)"
+        val stmt = SQLConnector.instance.connection.prepareStatement(sql)
+        stmt.setString(1, safe.name)
+        stmt.setString(2, safe.masterPassword)
+        if (stmt.executeUpdate() == 1) {
+            return all()
+                .stream()
+                .filter { s -> s.name == safe.name && safe.masterPassword == s.masterPassword }
+                .findFirst()
+                .orElseThrow()
+        } else {
+            throw NO_SAFE_FOUND_IN_DB
+        }
+    }
+
+    private fun update(safe: Safe): Safe {
+        val sql = "UPDATE SAFE SET name=?, master_password=? WHERE id=?"
+        val stmt = SQLConnector.instance.connection.prepareStatement(sql)
+        stmt.setString(1, safe.name)
+        stmt.setString(2, safe.masterPassword)
+        stmt.setLong(3, safe.id!!)
+        if (stmt.executeUpdate() == 1) {
+            return safe
+        } else {
+            throw NO_SAFE_FOUND_IN_DB
+        }
     }
 
     override fun delete(id: Long): Boolean {
-        // Implémentation de la méthode
-        return true
+        val sql = "DELETE FROM SAFE WHERE id=?"
+        val stmt = SQLConnector.instance.connection.prepareStatement(sql)
+        stmt.setLong(1, id)
+        return stmt.executeUpdate() == 1
     }
 
 }

@@ -1,7 +1,10 @@
 package fr.romainprojet31.keetlin.controllers
 
+import fr.romainprojet31.keetlin.dao.SQLConnector
+import fr.romainprojet31.keetlin.dao.SafeRepositoryImpl
 import fr.romainprojet31.keetlin.model.Safe
 import fr.romainprojet31.keetlin.sec.decrypt
+import fr.romainprojet31.keetlin.view.SceneManager
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.event.ActionEvent
 import javafx.fxml.FXML
@@ -15,22 +18,26 @@ import java.util.*
 
 class SafeManagementController : Initializable {
     @FXML
-    private val safeName: TextField? = null
+    lateinit var safeName: TextField
 
     @FXML
-    private val safePwd: PasswordField? = null
+    lateinit var safePwd: PasswordField
 
     @FXML
-    private val saveBtn: Button? = null
+    lateinit var saveBtn: Button
 
     var safe: Safe? = null
 
     private val formValid = SimpleBooleanProperty(false)
 
     override fun initialize(p0: URL?, p1: ResourceBundle?) {
+        init()
+    }
+
+    fun init() {
+        saveBtn.disableProperty().bind(formValid.not())
         if (safe != null) {
-            safeName!!.text = safe!!.name
-            safePwd!!.text = decrypt(safe!!.masterPassword)
+            safeName.text = safe!!.name
             updateFormValidity()
         }
     }
@@ -41,16 +48,26 @@ class SafeManagementController : Initializable {
     }
 
     @FXML
+    fun goToHome() {
+        SceneManager.instance.load("authentication.fxml")
+    }
+
+    @FXML
     fun onSaveSafe(event: ActionEvent?) {
         if (safe == null) {
-            safe = Safe(safeName!!.text, safePwd!!.text)
+            safe = Safe(safeName.text, safePwd.text)
         } else {
-            safe!!.name = safeName!!.text
-            safe!!.masterPassword = safePwd!!.text
+            safe!!.name = safeName.text
+            safe!!.masterPassword = safePwd.text
         }
+
+        safe!!.id =
+            (SQLConnector.instance.getRepo(SafeRepositoryImpl::class.java) as SafeRepositoryImpl).save(safe!!).id
+        SceneManager.instance.load("authentication.fxml")
     }
 
     private fun updateFormValidity() {
-        formValid.set(safeName!!.text.isNotBlank() && safePwd!!.text.isNotBlank())
+        val safePwdOk = safePwd.text.isNotBlank() && (safe == null || !safe!!.checkPwd(safePwd.text))
+        formValid.set(safeName.text.isNotBlank() && safePwdOk)
     }
 }
